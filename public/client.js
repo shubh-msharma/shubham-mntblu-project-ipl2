@@ -1,14 +1,11 @@
 
+const url = "https://shubh-mntblu-project-ipl2.herokuapp.com"
 
-
-
-
-
-
-document.addEventListener('load',function(event){
-    const static  = document.getElementById('static');
+const static  = document.getElementById('static');
     static.append(getSpinner());
-    fetch('https://shubh-mntblu-project-ipl2.herokuapp.com/getStaticData')
+
+window.onload = function(event){
+    fetch(url+'/getStaticData')
     .then(res => res.json())
     .then(obj => {
         static.innerHTML = ""
@@ -56,10 +53,10 @@ document.addEventListener('load',function(event){
                     break;
             }
         }
+        
+        document.getElementById('yearSelection').classList.remove('hide')
     })
-    document.getElementById('yearSelection').classList.remove('hide')
-
-})
+}
 
 const form = document.getElementById("fm")
 form.addEventListener('change', (event) => {
@@ -67,7 +64,7 @@ form.addEventListener('change', (event) => {
     main.innerHTML = ""
     main.append(getSpinner());
     let year = form.optn.value;
-    fetch('https://shubh-mntblu-project-ipl2.herokuapp.com/getdata?year=' + year, { method: "POST" })
+    fetch(url+'/getdata?year=' + year, { method: "POST" })
         .then(res => res.json())
         .then(obj => {
             main.innerHTML = "";
