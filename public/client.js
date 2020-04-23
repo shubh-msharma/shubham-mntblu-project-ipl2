@@ -6,8 +6,8 @@ form.addEventListener('change', (event) => {
     let main  = document.getElementById("main");
     main.innerHTML = ""
     main.append(getSpinner());
-    let year = form.optn.value
-    fetch('https://shubh-mntblu-project-ipl2.netlify.app/getdata?year=' + year, { method: "POST" })
+    let year = form.optn.value;
+    fetch('https://shubh-mntblu-project-ipl2.netlify.app:3004/getdata?year=' + year, { method: "POST" })
         .then(res => res.json())
         .then(obj => {
             main.innerHTML = "";
