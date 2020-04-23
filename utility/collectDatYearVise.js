@@ -16,8 +16,6 @@ async function collectDatYearVise(year = '2019'){
     return {
         economicalBowlersYearVise:economicalBowlersYearVise(deliveries,matches,year),
         extraRunsConcededByEachTeamYearVise:extraRunsConcededByEachTeamYearVise(deliveries,matches,year),
-        matchesPlayedPerYear:matchesPlayedPerYear(matches),
-        matchesWonByEachTeam:matchesWonByEachTeam(matches),
         matchesWonByEachTeamPerVenueYearVise:matchesWonByEachTeamPerVenue(matches,year)
     }
 }

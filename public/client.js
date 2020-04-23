@@ -1,9 +1,69 @@
 
 
-const form = document.getElementById("fm")
 
+
+
+
+
+document.addEventListener('load',function(event){
+    const static  = document.getElementById('static');
+    static.append(getSpinner());
+    fetch('https://shubh-mntblu-project-ipl2.herokuapp.com/getStaticData')
+    .then(res => res.json())
+    .then(obj => {
+        static.innerHTML = ""
+        for (let func in obj) {
+            let arr;
+            switch (func) {
+                case 'matchesPlayedPerYear':
+                    arr = [];
+                    for (let key in obj.matchesPlayedPerYear) {
+                        arr.push([key, obj.matchesPlayedPerYear[key]])
+                    }
+                    static.append(createContainer('matchesPlayedPerYear'))
+                    plotGraph('Matches played per year', "years", 'matchesPlayedPerYear', arr)
+                    break;
+                case 'matchesWonByEachTeam':
+                    arr = [];
+                    for (let key in obj.matchesWonByEachTeam) {
+                        let temp = [];
+                        for(let team in obj.matchesWonByEachTeam[key]){
+                            temp.push([team,obj.matchesWonByEachTeam[key][team]]);
+                        }
+                        
+                        arr.push({name:key, data:temp})
+                    }
+                    static.append(createContainer('matchesWonByEachTeam'))
+                    plotGraph1('matches won by each team', 'matchesWonByEachTeam', arr)
+                    console.log(arr);
+                    break;
+                case 'extraRunsConcededByEachTeam':
+                    arr = [];
+                    for (let key in obj.extraRunsConcededByEachTeam) {
+                        arr.push([key, obj.extraRunsConcededByEachTeam[key]])
+                    }
+                    static.append(createContainer('extraRunsConcededByEachTeam'))
+                    plotGraph('extra runs conceded by each team in year 2016', "teams", 'extraRunsConcededByEachTeam', arr)
+                    break;
+                case 'economicalBowlers':
+                    arr = [];
+                    for (let key in obj.economicalBowlers) {
+                        arr.push([key, obj.economicalBowlers[key].economuRate])
+                    }
+                    arr = arr.sort((a, b) => a[1] - b[1]).slice(0, 11);
+                    static.append(createContainer('economicalBowlers'))
+                    plotGraph('top 10 economical bowlers along with their economy rates in year 2015', "bowlers", 'economicalBowlers', arr)
+                    break;
+            }
+        }
+    })
+    document.getElementById('yearSelection').classList.remove('hide')
+
+})
+
+const form = document.getElementById("fm")
 form.addEventListener('change', (event) => {
-    let main  = document.getElementById("main");
+    let main  = document.getElementById("dynamic");
     main.innerHTML = ""
     main.append(getSpinner());
     let year = form.optn.value;
@@ -25,7 +85,6 @@ form.addEventListener('change', (event) => {
                             arr.push({name:venue,data:temp})
                         }
                         main.append(createContainer(func))
-                        console.log(arr);
                         plotGraph1('story: matches won by each team per venue in year'+year, "matchesWonByEachTeamPerVenueYearVise", arr)
                         break;
                     case 'extraRunsConcededByEachTeamYearVise':
@@ -45,28 +104,6 @@ form.addEventListener('change', (event) => {
                         main.append(createContainer(func))
                         plotGraph('top 10 economical bowlers along with their economy rates in year ' + year, "bowlers", 'economicalBowlersYearVise', arr)
                         break;
-                    case 'matchesPlayedPerYear':
-                        arr = [];
-                        for (let key in obj.matchesPlayedPerYear) {
-                            arr.push([key, obj.matchesPlayedPerYear[key]])
-                        }
-                        main.append(createContainer(func))
-                        plotGraph('Matches played per year', "years", 'matchesPlayedPerYear', arr)
-                        break;
-                    case 'matchesWonByEachTeam':
-                        arr = [];
-                        for (let key in obj.matchesWonByEachTeam) {
-                            let temp = [];
-                            for (let team in obj.matchesWonByEachTeam[key]) {
-                                temp.push([team, obj.matchesWonByEachTeam[key][team]]);
-                            }
-
-                            arr.push({ name: key, data: temp })
-                        }
-                        main.append(createContainer(func))
-                        plotGraph1('matches won by each team', 'matchesWonByEachTeam', arr)
-                        break;
-
                 }
             }
         })

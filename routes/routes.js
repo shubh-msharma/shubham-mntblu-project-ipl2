@@ -4,9 +4,11 @@ const getDataYearVise = require('../utility/collectDatYearVise')
 
 const route = express.Router();
 
-route.get('/senddata',(req,res)=>{
+route.get('/getStaticData',(req,res)=>{
 
-    getData().then(result=>res.send(result))
+    getData().then(result=>{
+        res.send(result)
+    })
 })
 
 route.post('/getdata',(req,res)=>{

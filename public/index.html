@@ -20,11 +20,14 @@
         </div>
     </div>
 
-    <div class="container-fluid bg-light p-4 my-3">
+    <div id="static" class="container"></div>
+
+    <div id="yearSelection" class="hide container-fluid bg-light p-4 my-3">
         <div class="row justify-content-center align-items-center m-auto">
+            <h2>IPL Data visualization by years</h2>
             <form id="fm" id="getData" method="get">
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Select Year</label>
+                    <label for="exampleFormControlSelect1"><b>Select Year</b></label>
                     <select name = "optn" class="form-control" id="exampleFormControlSelect1">
                         <option value="2008">2008</option>
                         <option value="2009">2009</option>
@@ -44,7 +47,7 @@
         </div>
     </div>
 
-    <div id="main" class="container"></div>
+    <div id="dynamic" class="container"></div>
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="client.js"></script>
