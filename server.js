@@ -5,7 +5,7 @@ const route = require('./routes/routes');
 
 const app = express();
 
-const PORT = process.env.PORT || 3005 ;
+const PORT = process.env.PORT || 3004 ;
 
 app.use(route);
 
