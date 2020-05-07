@@ -12,9 +12,12 @@ route.get('/getStaticData',(req,res)=>{
 })
 
 route.post('/getdata',(req,res)=>{
+    if(parseInt(req.query.year)>2019 || parseInt(req.query.year)<2008){
+        res.status(404).send()
+    }else{
     getDataYearVise(req.query.year).then(result=>{
         res.json(result)
-    }) 
+    }) }
     
 })
 

@@ -1,5 +1,8 @@
 
 const url = "https://shubh-mntblu-project-ipl2.herokuapp.com"
+// "http://localhost:3004"
+
+
 
 const static  = document.getElementById('static');
     static.append(getSpinner());
@@ -59,20 +62,26 @@ window.onload = function(event){
 }
 
 const form = document.getElementById("fm")
-form.addEventListener('change', (event) => {
+form.addEventListener('submit', (event) => {
+    // change
+    event.preventDefault();
     let main  = document.getElementById("dynamic");
     main.innerHTML = ""
+    document.getElementById("err_msg").innerHTML = ""
     main.append(getSpinner());
-    let year = form.optn.value;
+    // let year = form.optn.value
+    let year = form.ip.value.trim()
     fetch(url+'/getdata?year=' + year, { method: "POST" })
-        .then(res => res.json())
+        .then(res => {
+            if(res.status === 404)throw new Error("enter year between 2008 to 2019")
+            return res.json()
+        })
         .then(obj => {
             main.innerHTML = "";
             for (let func in obj) {
                 let arr;
                 switch (func) {
                     case 'matchesWonByEachTeamPerVenueYearVise':
-                        console.log(obj.matchesWonByEachTeamPerVenueYearVise)
                         arr = [];
                         for(let venue in obj.matchesWonByEachTeamPerVenueYearVise){
                             let temp = []
@@ -103,6 +112,9 @@ form.addEventListener('change', (event) => {
                         break;
                 }
             }
+        }).catch(err=>{
+            main.innerHTML = ""
+            document.getElementById("err_msg").innerHTML = err.message
         })
 
 })

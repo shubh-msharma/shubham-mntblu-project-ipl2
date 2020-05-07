@@ -25,9 +25,9 @@
     <div id="yearSelection" class="hide container-fluid bg-light p-4 my-3">
         <div class="row justify-content-center align-items-center m-auto flex-column">
             <h2>IPL Data visualization by years</h2>
-            <form id="fm" id="getData" method="get">
+            <form id="fm" id="getData">
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1"><b>Select Year</b></label>
+                    <!-- <label for="exampleFormControlSelect1"><b>Select Year</b></label>
                     <select name = "optn" class="form-control" id="exampleFormControlSelect1">
                         <option value="2008">2008</option>
                         <option value="2009">2009</option>
@@ -41,9 +41,12 @@
                         <option value="2017">2017</option>
                         <option value="2018">2018</option>
                         <option value="2019">2019</option>
-                    </select>
+                    </select> -->
+                    <input name = "ip" type="text" placeholder="enter a year" id="input_yr">
                 </div>
+                <button type="submit" id="sub_yr">submit</button>
             </form>
+            <h4 id = "err_msg" class="errmsg"></h4>
         </div>
     </div>
 
